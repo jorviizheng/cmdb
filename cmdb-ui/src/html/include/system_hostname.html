@@ -1,0 +1,22 @@
+<div class="box box-solid">
+    <div class="box-header bg-blue-gradient">
+        <h3 class="box-title">主机名修改</h3>
+    </div>
+    <div class="box-body">
+        <iframe name="hostname_iframe" style="display:none;"></iframe>
+        <form class="form-horizontal" target="hostname_iframe" role="form" autocomplete="off">
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <label style="float:left" class="control-label">服务器主机名<br></label></div>
+                <div class="col-sm-9">
+                    <input type="text" data-toggle="popover" title="实时分析"  data-placement="top"
+                           class="form-control" id="host_name_input" onfocus="get_current_hostname()"></input>
+                </div>
+            </div>
+            <div class="box-footer box-blue-gradient">
+                <button class="btn btn-danger pull-left" onclick="reload()">放弃</button>
+                <button class="btn btn-info pull-right" id="hostname_btn" onclick="hostname_task()">提交</button>
+            </div>
+        </form>
+    </div>
+</div>

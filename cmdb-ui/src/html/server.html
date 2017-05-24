@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    @@include('include/header.html')
+    <!-- DataTables -->
+    <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- Left side column. contains the logo and sidebar -->
+    @@include('include/aside.html')
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                服务器信息
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="index.html"><i class="fa fa-dashboard"></i> 主控制台</a></li>
+                <li class="active">服务器管理</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <!-- Main row -->
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="box box-solid">
+                                <div class="box-header bg-blue-gradient">
+                                    <h3 class="box-title">服务器管理</h3>
+                                </div>
+                                <div class="box-body">
+                                    <iframe name="server_iframe" style="display:none;"></iframe>
+                                    <form class="form-horizontal" target="server_iframe" role="form" autocomplete="off">
+                                        <div class="form-group">
+                                            <div class="col-sm-3"><label class="control-label" style="float:left">主机名</label></div>
+                                            <div class="col-sm-9"><input type="text" class="form-control" placeholder="服务器名称" id="server_name" onchange="check_server_exist()"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-3">
+                                                <label class="control-label" style="float:left">管理IP<br></label></div>
+                                            <div class="col-sm-9"><input type="text" class="form-control" id="manager_ip" placeholder="远控IP地址" onchange="disable()"></div>
+                                        </div>
+                                        <fieldset id="after_manager_ip" disabled>
+                                            <div class="form-group">
+                                                <div class="col-sm-3">
+                                                    <label style="float:left" class="control-label">网卡选择<br></label></div>
+                                                <div class="col-sm-9"><select class="form-control" id="mac_select" data-toggle="popover" title="实时分析"  data-placement="top" onblur="get_mac_map()"></select></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-3">
+                                                    <label style="float:left" class="control-label">部署网段<br></label></div>
+                                                <div class="col-sm-9"><select class="form-control" id="dhcp_server_select"></select></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-3">
+                                                    <label style="float:left" class="control-label">业务IP<br></label></div>
+                                                <div class="col-sm-9"><select class="form-control" id="server_ip"></select></div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-3">
+                                                    <label style="float:left" class="control-label">安装模板<br></label></div>
+                                                <div class="col-sm-9"><select class="form-control" id="pxe_template_select"></select></div>
+                                            </div>
+                                        </fieldset>
+                                        <div class="form-group">
+                                            <div class="col-sm-3">
+                                                <label style="float:left" class="control-label">所属组<br></label></div>
+                                            <div class="col-sm-9"><input type="text" class="form-control" id="server_group" placeholder="所属组"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-3">
+                                                <label style="float:left" class="control-label">所在机房<br></label></div>
+                                            <div class="col-sm-9"><select class="form-control" id="server_idc" placeholder="IDC">
+                                                <option selected='selected' value=0>请选择..</option>"
+                                                <option value="1">成都</option>
+                                            </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-3">
+                                                <label style="float:left" class="control-label">操作<br></label></div>
+                                            <div class="col-sm-9"><select class="form-control" id="action_select"></select></div>
+                                        </div>
+                                        <div class="box-footer box-blue-gradient">
+                                            <button style="float:right" class="btn btn-primary" id="submit_server_btn" onclick="submit_server()">提交</button>
+                                            <button style="float:left" class="btn btn-danger" type="fresh()">取消</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="box box-solid">
+                                <div class="box-header bg-blue-gradient">
+                                    <h3 class="box-title">标签管理</h3>
+                                </div>
+                                <div class="box-body">
+                                    <iframe name="tag_iframe" style="display:none;"></iframe>
+                                    <form class="form-horizontal" target="tag_iframe" role="form" autocomplete="off">
+                                        <div class="form-group">
+                                            <div class="col-sm-3"><label class="control-label" style="float:left">主机名</label></div>
+                                            <div class="col-sm-9"><select class="form-control" id="tag_server_select" onchange="get_current_tags()"></select></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-3"><label class="control-label" style="float:left">已有标签</label></div>
+                                         <div class="col-sm-9"><ul class="list-group" id="tag_server_list"></ul></div>
+
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-3"><label class="control-label" style="float:left">标签名</label></div>
+                                            <div class="col-sm-9"><input class="form-control" id="tag_name_input"></input></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-3">
+                                                <label style="float:left" class="control-label">操作<br></label></div>
+                                            <div class="col-sm-9"><select class="form-control" id="tag_action_select">
+                                                <option selected='selected' value=0>请选择</option>"
+                                                <option  value=1>新增</option>
+                                                <option  value=2>删除</option>
+                                            </select></div>
+                                        </div>
+                                        <div class="box-footer box-blue-gradient">
+                                            <button style="float:right" class="btn btn-primary" id="add_tag_btn" onclick="tag_action()">提交</button>
+                                            <button style="float:left" class="btn btn-danger" id="del_tag_btn">取消</button>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">服务器列表</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <row>
+                                <div col-lg-4>
+                                    <label for="search_condition">search condition:</label>
+                                    <input type="text" id="search_trigger">
+                                </div>
+                            </row>
+
+                            <table id="server_table" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <!--<th>ID</th>-->
+                                    <th>主机名</th>
+                                    <th>标签</th>
+                                    <th>远控IP</th>
+                                    <th>服务IP</th>
+                                    <th>操作系统</th>
+                                    <th>状态</th>
+                                    <th>机房</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+            <!-- /.row (main row) -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- Home tab content -->
+            <div class="tab-pane" id="control-sidebar-home-tab">
+                <h3 class="control-sidebar-heading">Recent Activity</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                                <p>Will be 23 on April 24th</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-user bg-yellow"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                                <p>New phone +1(800)555-1234</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+
+                                <p>nora@example.com</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+
+                                <p>Execution time 5 seconds</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+                <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Custom Template Design
+                                <span class="label label-danger pull-right">70%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Update Resume
+                                <span class="label label-success pull-right">95%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Laravel Integration
+                                <span class="label label-warning pull-right">50%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Back End Framework
+                                <span class="label label-primary pull-right">68%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+            </div>
+            <!-- /.tab-pane -->
+            <!-- Stats tab content -->
+            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+            <!-- /.tab-pane -->
+            <!-- Settings tab content -->
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <form method="post">
+                    <h3 class="control-sidebar-heading">General Settings</h3>
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Report panel usage
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Some information about this general settings option
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Allow mail redirect
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Other sets of options are available
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Expose author name in posts
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Allow the user to show his name in blog posts
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Show me as online
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Turn off notifications
+                            <input type="checkbox" class="pull-right">
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Delete chat history
+                            <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+                </form>
+            </div>
+            <!-- /.tab-pane -->
+        </div>
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+    @@include('include/footer.html')
+</div>
+</body>
+<!-- jQuery 2.2.3 -->
+<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- DataTables -->
+<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!--<script src="../https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>-->
+<!-- jQuery UI 1.11.4 -->
+<script src="../plugins/jQueryUI/jquery-ui.js"></script>
+
+
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+
+<script src="../plugins/flot/jquery.flot.min.js"></script>
+
+<!-- Bootstrap WYSIHTML5 -->
+<script src="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+
+<!--js-->
+
+<script src="../plugins/cookie/jquery.cookie.js"></script>
+<script src="../js/cookie.js"></script>
+<script src="../plugins/base64/base64.min.js"></script>
+<script src="../js/datetime.js"></script>
+<script src="../js/common.js"></script>
+
+<script src="../js/server.js"></script>
+<!-- page script -->
+<script>
+    $(function () {
+        var table = $('#server_table');
+        table.dataTable({
+            PaginationType : "full_numbers",
+            sort:true,
+            processing: false,
+            serverSide: true,
+            paging: true,
+            lengthChange: true,
+            searching: false,
+            ordering: true,
+            dataType: 'json',
+            contentType: "application/json;charset=utf-8",
+            ajax:{
+                url:"http://cmdb.wanda.cn/api/async/v1/servers"
+            },
+            columns: [
+                { "data": "server_name" },
+                { "data" : "tag"},
+                { "data": "manager_ip" },
+                { "data": "server_ip" },
+                { "data": "system_type" },
+                { "data": "status" },
+                { "data": "idc_id" }
+            ]
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#search_trigger").keyup(function(){
+            var search_str = $("#search_trigger").val();
+            if(search_str!=""){
+                $("tbody>tr").hide().filter(":contains('"+search_str+"')").show();
+            }else{
+                $("tbody>tr").show();
+            }
+        }).keyup();
+    })
+</script>
+</html>

@@ -1,0 +1,16 @@
+{
+  "auth.js": "auth-63532de707.js",
+  "common.js": "common-d628dd81f0.js",
+  "cookie.js": "cookie-83837def4e.js",
+  "custom.js": "custom-20dacb0152.js",
+  "datetime.js": "datetime-d7074350fd.js",
+  "server.js": "server-9f2f2c18c0.js",
+  "stats.js": "stats-c4eb00dc72.js",
+  "system.js": "system-65bc46f20c.js",
+  "system_firewalld.js": "system_firewalld-ae5ee43263.js",
+  "system_hostname.js": "system_hostname-7a1a9fc99a.js",
+  "system_user.js": "system_user-fa0f9b9401.js",
+  "system_yum.js": "system_yum-95892bb4aa.js",
+  "tag.js": "tag-5fddb24b61.js",
+  "task.js": "task-fcef00f2a8.js"
+}

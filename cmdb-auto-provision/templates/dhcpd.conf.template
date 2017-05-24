@@ -1,0 +1,32 @@
+ddns-update-style interim;
+deny unknown-clients;
+allow booting;
+allow bootp;
+ignore client-updates;
+set vendorclass = option vendor-class-identifier;
+option pxe-system-type code 93 = unsigned integer 16;
+{% for dhcp_server in dhcp_servers%}
+subnet {{dhcp_server.dhcp_subnet}} netmask {{dhcp_server.dhcp_netmask}} {
+     option routers             {{dhcp_server.dhcp_routers}};
+     option domain-name         "{{dhcp_server.dhcp_domain_name}}";
+     option domain-name-servers {{dhcp_server.dhcp_domain_name_servers}};
+     option subnet-mask         {{dhcp_server.dhcp_netmask}};
+     range dynamic-bootp        {{dhcp_server.dhcp_range}}.{{dhcp_server.dhcp_range_start}} {{dhcp_server.dhcp_range}}.{{dhcp_server.dhcp_range_end}};
+     default-lease-time         21600;
+     max-lease-time             43200;
+     next-server                {{dhcp_server.dhcp_next_server}};
+}
+{% endfor %}
+group {
+
+    {% for host in pxe_template_list %}
+        host {{host.server_name}} {
+        hardware ethernet {{host.mac_address}};
+        fixed-address {{host.server_ip}};
+        option host-name "{{host.server_name}}";
+        next-server  {{host.dhcp_next_server}};
+        filename "{{host.boot_path}}/{{host.boot_file_name}}";
+    }
+    {% endfor%}
+
+}

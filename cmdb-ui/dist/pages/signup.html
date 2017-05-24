@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>CMDB注册</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- styles -->
+    <link href="../css/styles-4cc147272b.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="login-bg">
+    <div class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- Logo -->
+                    <div class="logo">
+                        <h1><a href="index.html">用户注册</a></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-content container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-wrapper">
+                    <div class="box">
+                        <div class="content-wrap">
+                            <form class="form-horizontal" role="form" id="signForm">
+                                <h6>注册</h6>
+                                <input class="form-control" type="text" name="userNameEn" placeholder="账户名称">
+                                <input class="form-control" type="text" name="userNameCn" placeholder="用户名(中文)">
+                                <input class="form-control" type="password" name="passWord" placeholder="密码">
+                                <input class="form-control" type="password" name="passWordCheck" placeholder="再次输入">
+                                <input class="form-control" type="text" name="email" placeholder="邮箱">
+                                <input class="form-control" type="text" name="mobile" placeholder="手机号">
+
+                                <div class="action">
+                                    <a class="btn btn-primary signup" onclick="signUp()">注册</a>
+                                    <a class="btn btn-primary " href="login.html">取消</a>
+                                </div>
+
+                            </form>
+
+                        </div>
+                    </div>
+
+                    <div class="already">
+                        <p>Have an account already?</p>
+                        <a href="login.html">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../plugins/base64/base64.min.js"></script>
+    <script src="../js/auth-63532de707.js"></script>
+    <script src="../js/datetime-d7074350fd.js"></script>
+</body>
+
+</html>

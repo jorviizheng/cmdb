@@ -1,0 +1,75 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="col-lg-6">
+            <div class="box box-solid">
+                <div class="box-header bg-blue-gradient">
+                    <h3 class="box-title">软件源管理</h3>
+                </div>
+                <div class="box-body">
+                    <iframe name="resource_iframe" style="display:none;"></iframe>
+                    <form class="form-horizontal" target="resource_iframe" role="form" autocomplete="off">
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label style="float:left" class="control-label">软件源<br></label></div>
+                            <div class="col-sm-10"><select class="form-control" id="yum_source_select" onblur="check_yum_resource_installed()"></select></div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <label style="float:left" class="control-label">操作<br></label></div>
+                            <div class="col-sm-10"><select class="form-control" id="yum_source_action_select">
+                                <option selected='selected' value=0>请选择</option>"
+                                <option value=1>新增</option>
+                                <option value=2>删除</option>
+                            </select></div>
+                        </div>
+                        <div class="box-footer">
+                            <button class="btn btn-danger pull-left" onclick="reload()">放弃</button>
+                            <button class="btn btn-info pull-right" id="source_btn" onclick="yum_source_task()">提交</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="box box-solid">
+                <div class="box-header bg-blue-gradient">
+                    <h3 class="box-title">系统软件管理</h3>
+                </div>
+                <div class="box-body">
+                    <iframe name="pakcage_iframe" style="display:none;"></iframe>
+                    <form class="form-horizontal" target="pakcage_iframe" role="form" autocomplete="off">
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <label style="float:left" class="control-label">软件包<br></label></div>
+                            <div class="col-sm-9">
+                                <input type="text" list="package_list" class="form-control" id="package_input" placeholder="包名称(支持自动搜索)" onblur="check_server_package_installed()" />
+                                <datalist id="package_list"></datalist>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <label style="float:left" class="control-label">软件版本<br></label></div>
+                            <div class="col-sm-9">
+                                <select class="form-control" id="yum_package_version_select"></select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-3">
+                                <label style="float:left" class="control-label">操作<br></label></div>
+                            <div class="col-lg-9"><select class="form-control" id="yum_package_action_select" onchange="check_server_has_source()">
+                                <option selected='selected' value=0>请选择</option>
+                                <option value=1>新增..</option>
+                                <option value=2>删除..</option>
+                                <option value=3>更新..</option>
+                            </select></div>
+                        </div>
+                        <div class="box-footer box-blue-gradient">
+                            <button class="btn btn-danger pull-left" onclick="reload()">放弃</button>
+                            <button class="btn btn-info pull-right" id="package_btn" onclick="yum_package_task()">提交</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>CMDB</title>
+<!-- Tell the browser to be responsive to screen width -->
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<!--<meta http-equiv="pragma" content="no-cache">-->
+<!--<meta http-equiv="cache-control" content="no-cache">-->
+<!--<meta http-equiv="expires" content="0">-->
+<!-- Bootstrap 3.3.6 -->
+<link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+<!-- Font Awesome -->
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">-->
+<!-- Ionicons -->
+<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">-->
+<!-- Theme style -->
+<link rel="stylesheet" href="../AdminLTE/AdminLTE.min.css">
+<!-- AdminLTE Skins. Choose a skin from the css/skins
+     folder instead of downloading all of them to reduce the load. -->
+<link rel="stylesheet" href="../AdminLTE/skins/_all-skins.min.css">
+<link rel="stylesheet" href="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">CMDB</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <!--<ul class="nav navbar-nav">-->
+                <!--<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>-->
+                <!--<li><a href="#">Link</a></li>-->
+                <!--<li class="dropdown">-->
+                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
+                    <!--<ul class="dropdown-menu">-->
+                        <!--<li><a href="#">Action</a></li>-->
+                        <!--<li><a href="#">Another action</a></li>-->
+                        <!--<li><a href="#">Something else here</a></li>-->
+                        <!--<li role="separator" class="divider"></li>-->
+                        <!--<li><a href="#">Separated link</a></li>-->
+                        <!--<li role="separator" class="divider"></li>-->
+                        <!--<li><a href="#">One more separated link</a></li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+            <!--</ul>-->
+            <ul class="nav navbar-nav navbar-right" id="navbar_right">
+                <li><a href="signup.html">注册</a></li>
+                <li><a href="login.html">登录</a></li>
+                <!--<li class="dropdown">-->
+                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
+                    <!--<ul class="dropdown-menu">-->
+                        <!---->
+                        <!---->
+                    <!--</ul>-->
+                <!--</li>-->
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+    <!-- DataTables -->
+    <link rel="stylesheet" href="../plugins/datatables/dataTables.bootstrap.css">
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- search form -->
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                </button>
+              </span>
+            </div>
+        </form>
+        <!-- /.search form -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+            <li class="header" >管理控制台</li>
+            <li class="treeview">
+                <a href="index.html">
+                    <i class="fa fa-dashboard"></i> <span>主控制台</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+            </li>
+            <li class="treeview">
+                <a href="server.html">
+                    <i class="fa fa-server"></i> <span>服务器管理</span>
+                    <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+                </a>
+            </li>
+            <li>
+                <a href="system.html">
+                    <i class="fa fa-laptop"></i> <span>系统管理</span>
+                    <span class="pull-right-container">
+            </span>
+                </a>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-bank"></i>
+                    <span>应用管理</span>
+                    <span class="pull-right-container">
+            </span>
+                </a>
+            </li>
+            <li>
+                <a href="task.html">
+                    <i class="fa fa-laptop"></i> <span>任务管理</span>
+                    <span class="pull-right-container">
+            </span>
+                </a>
+            </li>
+            <li>
+                <a href="tagging.html">
+                    <i class="fa fa-laptop"></i> <span>标签管理</span>
+                    <span class="pull-right-container">
+            </span>
+                </a>
+            </li>
+        </ul>
+    </section>
+    <!-- /.sidebar -->
+</aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                机房管理
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="index.html"><i class="fa fa-dashboard"></i> 主控制台</a></li>
+                <li class="active">机房管理</li>
+            </ol>
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <!-- Info boxes -->
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">机房</span>
+                            <span class="info-box-number">90<small>%</small></span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Likes</span>
+                            <span class="info-box-number">41,410</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+
+                <!-- fix for small devices only -->
+                <div class="clearfix visible-sm-block"></div>
+
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Sales</span>
+                            <span class="info-box-number">760</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">New Members</span>
+                            <span class="info-box-number">2,000</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+            <!-- Main row -->
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <div class="box box-solid">
+                                <div class="box-header bg-blue-gradient">
+                                    <h3 class="box-title">新增服务器</h3>
+                                </div>
+                                <div class="box-body">
+                                    <form class="form-horizontal" role="form" id="addForm">
+                                        <div class="form-group">
+                                            <div class="col-sm-2"><label for="serverName" class="control-label" style="float:left">主机名</label></div>
+                                            <div class="col-sm-10"><input type="text" class="form-control" placeholder="服务器名称" name="serverName" onchange="checkServerExist()"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-2">
+                                                <label for="remoteControlIpAddress" class="control-label" style="float:left">远控IP<br></label></div>
+                                            <div class="col-sm-10"><input type="text" class="form-control" name="remoteControlIpAddress" placeholder="远控IP地址" onchange="disable()"></div>
+                                        </div>
+                                        <fieldset id="afterManagerIP" disabled>
+                                            <!--<div class="form-group">-->
+                                            <!--<div class="col-sm-2">-->
+                                            <!--<label for="remoteMacAddress" class="control-label" style="float:left">MAC地址<br></label></div>-->
+                                            <!--<div class="col-sm-10">-->
+                                            <!--<select class="form-control" name="serverMacAddress" placeholder="MAC地址"></select>-->
+                                            <!--</div>-->
+                                            <!--</div>-->
+                                            <div class="form-group">
+                                                <div class="col-sm-2">
+                                                    <label for="serverIpAddress" style="float:left" class="control-label">业务IP<br></label></div>
+                                                <div class="col-sm-10"><select class="form-control" id="serverIpAddress" placeholder="业务IP地址"></select></div>
+                                            </div>
+                                        </fieldset>
+                                        <div class="form-group">
+                                            <div class="col-sm-2">
+                                                <label for="serverGroup" style="float:left" class="control-label">所属组<br></label></div>
+                                            <div class="col-sm-10"><input type="text" class="form-control" name="serverGroup" placeholder="所属组"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-2">
+                                                <label for="idc" style="float:left" class="control-label">IDC<br></label></div>
+                                            <div class="col-sm-10"><input type="text" class="form-control" name="serverIdc" placeholder="IDC" onchange="checkIdcExist()"></div>
+
+                                        </div>
+                                        <!--<div class="form-group">-->
+                                        <!--<div class="col-sm-2">-->
+                                        <!--<label for="remoteControlIpAddress" class="control-label" style="float:left">用户名<br></label></div>-->
+                                        <!--<div class="col-sm-10"><input type="text" class="form-control" name="remoteControlUser" placeholder="远控用户名"></div>-->
+                                        <!--</div>-->
+                                        <!--<div class="form-group">-->
+                                        <!--<div class="col-sm-2">-->
+                                        <!--<label for="remoteControlIpAddress" class="control-label" style="float:left">密码<br></label></div>-->
+                                        <!--<div class="col-sm-10"><input type="password" class="form-control" name="remoteControlPassword" placeholder="远控用户密码"></div>-->
+                                        <!--</div>-->
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="box">
+                                <div class="box-header">
+                                    <h3 class="box-title">重装服务器</h3>
+                                </div>
+                                <div class="box-body">
+                                    <form class="form-horizontal" role="form" id="reshipForm">
+                                        <div class="form-group">
+                                            <div class="col-sm-2">
+                                                <label for="server" style="float:left" class="control-label">主机名<br></label></div>
+                                            <div class="col-sm-10"><select class="form-control" id="reshipServerName" onchange="showReShipInfo()"></select></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-2">
+                                                <label for="reshipRemoteServerIpAddress" style="float:left" class="control-label">管理IP<br></label></div>
+                                            <div class="col-sm-10"><input type="text" class="form-control" id="reshipRemoteManagerIP" readonly></input></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-2">
+                                                <label for="serverIpAddress" style="float:left" class="control-label">业务IP<br></label></div>
+                                            <div class="col-sm-10"><select class="form-control" id="reshipServerIpAddress"></select></div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-sm-2">
+                                                <label for="serverGroup" style="float:left" class="control-label">所属组<br></label></div>
+                                            <div class="col-sm-10"><input type="text" class="form-control" id="reshipServerGroup" placeholder="所属组"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-2">
+                                                <label for="idc" style="float:left" class="control-label">IDC<br></label></div>
+                                            <div class="col-sm-10"><input type="text" class="form-control" id="reshipServerIdc" placeholder="IDC" onchange="checkReshipIdcExist()"></div>
+
+                                        </div>
+                                        <!--<div class="form-group">-->
+                                        <!--<div class="col-sm-2">-->
+                                        <!--<label for="remoteControlIpAddress" class="control-label" style="float:left">用户名<br></label></div>-->
+                                        <!--<div class="col-sm-10"><input type="text" class="form-control" name="reshipRemoteControlUser" placeholder="远控用户名"></div>-->
+                                        <!--</div>-->
+                                        <!--<div class="form-group">-->
+                                        <!--<div class="col-sm-2">-->
+                                        <!--<label for="remoteControlIpAddress" class="control-label" style="float:left">密码<br></label></div>-->
+                                        <!--<div class="col-sm-10"><input type="password" class="form-control" name="reshipRemoteControlPassword" placeholder="远控用户密码"></div>-->
+                                        <!--</div>-->
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">服务器列表</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="server_table" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <!--<th>ID</th>-->
+                                    <th>主机名</th>
+                                    <th>远控IP</th>
+                                    <th>服务IP</th>
+                                    <th>操作系统</th>
+                                    <th>状态</th>
+                                    <th>机房</th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                </div>
+            </div>
+            <!-- /.row (main row) -->
+
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+            <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- Home tab content -->
+            <div class="tab-pane" id="control-sidebar-home-tab">
+                <h3 class="control-sidebar-heading">Recent Activity</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-birthday-cake bg-red"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
+
+                                <p>Will be 23 on April 24th</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-user bg-yellow"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Frodo Updated His Profile</h4>
+
+                                <p>New phone +1(800)555-1234</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-envelope-o bg-light-blue"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Nora Joined Mailing List</h4>
+
+                                <p>nora@example.com</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <i class="menu-icon fa fa-file-code-o bg-green"></i>
+
+                            <div class="menu-info">
+                                <h4 class="control-sidebar-subheading">Cron Job 254 Executed</h4>
+
+                                <p>Execution time 5 seconds</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+                <h3 class="control-sidebar-heading">Tasks Progress</h3>
+                <ul class="control-sidebar-menu">
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Custom Template Design
+                                <span class="label label-danger pull-right">70%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-danger" style="width: 70%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Update Resume
+                                <span class="label label-success pull-right">95%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-success" style="width: 95%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Laravel Integration
+                                <span class="label label-warning pull-right">50%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-warning" style="width: 50%"></div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)">
+                            <h4 class="control-sidebar-subheading">
+                                Back End Framework
+                                <span class="label label-primary pull-right">68%</span>
+                            </h4>
+
+                            <div class="progress progress-xxs">
+                                <div class="progress-bar progress-bar-primary" style="width: 68%"></div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+            </div>
+            <!-- /.tab-pane -->
+            <!-- Stats tab content -->
+            <div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab Content</div>
+            <!-- /.tab-pane -->
+            <!-- Settings tab content -->
+            <div class="tab-pane" id="control-sidebar-settings-tab">
+                <form method="post">
+                    <h3 class="control-sidebar-heading">General Settings</h3>
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Report panel usage
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Some information about this general settings option
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Allow mail redirect
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Other sets of options are available
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Expose author name in posts
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+
+                        <p>
+                            Allow the user to show his name in blog posts
+                        </p>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <h3 class="control-sidebar-heading">Chat Settings</h3>
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Show me as online
+                            <input type="checkbox" class="pull-right" checked>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Turn off notifications
+                            <input type="checkbox" class="pull-right">
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+
+                    <div class="form-group">
+                        <label class="control-sidebar-subheading">
+                            Delete chat history
+                            <a href="javascript:void(0)" class="text-red pull-right"><i class="fa fa-trash-o"></i></a>
+                        </label>
+                    </div>
+                    <!-- /.form-group -->
+                </form>
+            </div>
+            <!-- /.tab-pane -->
+        </div>
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+         immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+    <footer class="main-footer">
+    <div class="pull-right hidden-xs">
+        <b>Version</b> 2.3.11
+    </div>
+    <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
+    reserved.
+</footer>
+</div>
+</body>
+<!-- jQuery 2.2.3 -->
+<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- DataTables -->
+<script src="../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../plugins/datatables/dataTables.bootstrap.min.js"></script>
+<!--<script src="../https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>-->
+<!-- jQuery UI 1.11.4 -->
+<script src="../plugins/jQueryUI/jquery-ui.js"></script>
+
+
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+    $.widget.bridge('uibutton', $.ui.button);
+</script>
+<!-- Bootstrap 3.3.6 -->
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+
+<script src="../plugins/flot/jquery.flot.min.js"></script>
+
+<!-- Bootstrap WYSIHTML5 -->
+<script src="../plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+
+<!-- page script -->
+<script>
+    $(function () {
+        var table = $('#server_table');
+        table.dataTable({
+            PaginationType : "full_numbers",
+            processing: true,
+            serverSide: true,
+            paging: true,
+            lengthChange: true,
+            searching: true,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            dataType: 'json',
+            contentType: "application/json;charset=utf-8",
+            ajax:{
+                url:"http://cmdb.wanda.cn/api/async/v1/servers"
+            },
+            columns: [
+                { "data": "server_name" },
+                { "data": "server_ip" },
+                { "data": "manager_ip" },
+                { "data": "system_type" },
+                { "data": "status" },
+                { "data": "idc_name_cn" }
+            ]
+        });
+    });
+</script>
+</html>
