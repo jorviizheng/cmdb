@@ -36,7 +36,7 @@ server {
         rewrite ^/$ /pages/index.html permanent;
  
         location / {
-           root /Users/pippo/Project/python/cmdb/cmdb-ui/dist;
+           root /your cmdb path/cmdb-ui/dist;
            index index.html;
         }
 
