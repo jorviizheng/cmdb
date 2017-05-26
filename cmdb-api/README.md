@@ -25,7 +25,7 @@ create database cmdb owner cmdb_admin  tablespace cmdb;
 
 #### 已使用数据表
 表名| 用途
----|---|---
+---|---
 server | 存储服务器信息 
 dhcp_server | dhcp服务信息
 dhcp_map|dhcp中服务器与ip地址映射关系
@@ -40,7 +40,7 @@ user|用户信息
 
 #### 未使用数据表
 表名| 用途
----|---|---
+---|---
 group | 分组信息
 permission| 权限
 resource|资源信息
